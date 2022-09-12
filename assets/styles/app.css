@@ -3,3 +3,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root{
+    --primary-color: white;
+    --secondary-color: black;
+    --third-color: gold;
+
+}
+
+/* h4{
+    color: var(--third-color) !important;
+} */
