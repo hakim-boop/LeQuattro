@@ -1,7 +1,7 @@
 <header>
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="">Le Quattro</a>
+			<a class="navbar-brand" href="{{ path('default_home') }}">Le Quattro</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -10,22 +10,32 @@
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="{{ path('default_home') }}">Accueil</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="">Chambre</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="">Restaurant</a>
+					</li>
 
-					{% if not app.user %}
-						<li class="nav-item">
-							<a class="nav-link" href="">S'inscrire</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="">Se connecter</a>
-						</li>
-					{% else %}
-						<li class="nav-item">
-							<a class="nav-link" href="">Espace perso</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="">Se déconnecter</a>
-						</li>
-					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link" href="">Spa</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="">Réservation</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="">Avis</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="">L'hôtel</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="">Actualités</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="">Contact</a>
+					</li>
+
 
 					{% if is_granted("ROLE_ADMIN") %}
 						<li class="nav-item dropdown">
@@ -37,10 +47,10 @@
 									<a class="dropdown-item" href="">Dashboard</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="">Ajouter un article</a>
+									<a class="dropdown-item" href="">Ajouter un membre</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="">Ajouter une catégorie</a>
+									<a class="dropdown-item" href="">Carousel</a>
 								</li>
 							</ul>
 						</li>
@@ -51,15 +61,4 @@
 		</div>
 	</nav>
 </header>
-<div class="bg-light">
 
-	{#  1ère FACON
-	        L'appel de l'action se fera de manière statique (::) et il faudra renseigner le namespace du Controller.
-	        Vous DEVREZ mettre 2 backslash pour cet appel.
-	    #}
-	{#    {{ render(controller('App\\Controller\\RenderController::renderCategoriesInNav')) }}#}
-	{#  2ème FACON
-	        Vous pouvez utiliser des paramètres avec la fonction url(), plus pratique que la première (controller())
-	        Cette fonction url() prend un nom de route (name:), le résultat sera identique à la 1ère FACON.
-	    #}
-</div>
