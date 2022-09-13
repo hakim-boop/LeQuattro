@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegisterFormType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -52,18 +53,12 @@ class RegisterFormType extends AbstractType
 
             ->add('civilite', ChoiceType::class, [
                 'label' => 'Civilité',
-                'expanded' => true, // Pour avoir une checkbox
                 'choices' => [
-                    'Homme' => 'h',
-                    'Femme' => 'f',
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Ce champ ne peut être vide'
-                    ]),
+                    'Monsieur' => 'monsieur',
+                    'Madame' => 'madame',
                 ],
             ])
-            
+
             ->add('submit', SubmitType::class, [
                 'label' => "S'inscrire",
                 'validate' => false,

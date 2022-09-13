@@ -55,7 +55,6 @@ class SecurityController extends AbstractController
                 $passwordHasher->hashPassword($membre, $membre->getPassword())
             );
 
-            // = persist + flush
             $repository->add($membre, true);
 
             $this->addFlash('success', 'Votre inscription a été effectuée avec succès, Bienvenue !');
