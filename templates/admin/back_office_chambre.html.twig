@@ -1,0 +1,58 @@
+
+
+    <h1 class="text-center my-3">Backoffice Chambre</h1>  
+
+    {# C'est le tableau BACKOFFICE qui montre les chambres en bdd #}
+  
+  <div class="row">
+        <div class="col-10 mx-auto my-4">
+
+       <div class="row my-5 mx-auto">
+        <div class="col-4">
+            <a class=" btn btn-sm btn-outline-dark" href="{{ path('create_chambre') }}">Ajouter une chambre</a>
+        </div>
+
+    </div>
+
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Description (courte)</th>
+                    <th>Description (Longue)</th>
+                    <th>Photo</th>
+                    <th>Prix (jounalier/Nuitée)</th>
+                    <th>Date Enrgistrement</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for chambre in chambre %}
+                    <tr>
+                        <td class="text-center">{{ chambre.id }}</td>
+                        <td class="text-center">{{ chambre.titre | length > 20 ? chambre.titre | slice(0,20) ~ '...' : chambre.titre }}</td>
+                        <td class="text-center">{{ chambre.descriptionCourte | length > 20 ? chambre.descriptionCourte | slice(0,20) ~ '...' : chambre.descriptionCourte }}</td>
+                        {# <td class="text-center">{{ chambre.category.name }}</td> #}
+                        <td class="text-center">{{ chambre.descriptionLongue }}</td>
+
+                        <td class="text-center">{{ chambre.photo }}</td>
+                        <td class="text-center">{{ chambre.prixJournalier }}</td>
+                        <td class="text-center">{{ chambre.createdAt | date('d/m/Y') }}</td>
+                        <td class="text-center">
+                            {# <a href="{{ path('restore_article', {'id': chambre.id}) }}" class="text-info" title="Modifier la chambre"><i class="fa fa-edit"></i></a> #}
+                            {# <a href="{{ path('hard_delete_article', {'id': chambre.id}) }}" class="text-danger" title="Archiver la chambre" onclick="return confirm('Voulez-vous archiver cet chambre ?')"><i class="fa fa-trash"></i></a> #}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="bg-info text-center align-middle">Aucune chambre publié</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
