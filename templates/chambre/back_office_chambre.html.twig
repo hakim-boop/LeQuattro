@@ -58,7 +58,7 @@
                         <td class="text-center">{{ chambre.createdAt | date('d/m/Y H:i:s') }}</td>
                         <td class="text-center">
              {# MODIFIER CHAMBRE  #}             <a href="{{ path('update_chambre', {'id': chambre.id}) }}" class="text-info" title="Modifier la chambre"><i class="fa fa-edit"></i></a> 
-         {# SOFT DELETE #}                  <a href="{{ path('default_home', {'id': chambre.id}) }}" class="text-danger" title="Archiver la chambre" onclick="return confirm('Voulez-vous archiver cet chambre ?')"><i class="fa fa-trash"></i></a> 
+         {# SOFT DELETE #}                  <a href="{{ path('soft_delete_chambre', {'id': chambre.id}) }}" class="text-danger" title="Archiver la chambre" onclick="return confirm('Voulez-vous archiver cet chambre ?')"><i class="fa fa-trash"></i></a> 
                         </td>
                     </tr>
                 {% else %}

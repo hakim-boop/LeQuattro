@@ -30,7 +30,7 @@ class ChambreController extends AbstractController
 
         ]);
 
-        } // end of showChambre()
+        } // end of showChambre() -> POUR AFFICHER LES CHAMBRES
         
         #[Route('/ajouter-une-chambre', name: 'create_chambre', methods: ['GET', 'POST'])]
         public function createChambre( Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
@@ -103,7 +103,9 @@ class ChambreController extends AbstractController
         ]);
     } // end function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
 
+     
 
+    // DEBUT FONCTION SUPPRIMER CHAMBRES
     #[Route('/archiver-un-chambre/{id}', name: 'soft_delete_chambre', methods: ['GET'])]
     public function softDeleteChambre(Chambre $chambre, EntityManagerInterface $entityManager): RedirectResponse
     {
@@ -116,7 +118,7 @@ class ChambreController extends AbstractController
         return $this->redirectToRoute('show_backoffice_chambre');
 
     }  // end function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
-
+        
 
         // start function showBackofficeChambre() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
         #[Route('/voir-backoffice-chambre', name: 'show_backoffice_chambre', methods: ['GET'])]
