@@ -10,8 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -19,9 +19,21 @@ class AdminController extends AbstractController
     #[Route('/tableau-de-bord', name: 'show_dashboard', methods: ['GET'])]
     public function showDashboard(EntityManagerInterface $entityManager): Response
     {
-        $membres = $entityManager->getRepository(Membre::class)->findAll();
+        $membres = $entityManager->getRepository(Membre::class)->findBy([
+            "deletedAt" => null,
+        ]);
 
         return $this->render('admin/show_dashboard.html.twig', [
+            'membres' => $membres,
+        ]);
+    }
+
+    #[Route('/voir-les-archives', name: 'show_archives', methods: ['GET'])]
+    public function showArchives(EntityManagerInterface $entityManager): Response
+    {
+        $membres = $entityManager->getRepository(Membre::class)->findAllArchived();
+
+        return $this->render('admin/show_archives.html.twig', [
             'membres' => $membres,
         ]);
     }
@@ -51,5 +63,42 @@ class AdminController extends AbstractController
             'membre' => $membre,
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route("/archiver-un-membre/{id}", name: 'soft_delete_membre', methods: ['GET'])]
+    public function softDeleteMembre(Membre $membre, MembreRepository $repository): RedirectResponse
+    {
+        $membre->setDeletedAt(new DateTime());
+
+        $repository->add($membre, true);
+
+        $this->addFlash('success', 'Le membre a bien été archivé. Voir les archives !');
+
+        return $this->redirectToRoute('show_dashboard');
+        
+    }
+
+    #[Route("/restaurer-un-membre/{id}", name: 'restore_membre', methods: ['GET'])]
+    public function restoreMembre(Membre $membre, MembreRepository $repository): Response
+    {
+        $membre->setDeletedAt(null);
+
+        $repository->add($membre, true);
+
+        $this->addFlash('success', 'Le membre a bien été restaurer !');
+
+        return $this->redirectToRoute('show_dashboard');
+        
+    }
+
+    #[Route("/supprimer-un-membre/{id}", name: 'hard_delete_membre', methods: ['GET'])]
+    public function hardDeleteMembre(Membre $membre, MembreRepository $repository): Response
+    {
+        $repository->remove($membre, true);
+
+        $this->addFlash('success', 'Le membre a bien été supprimer !');
+
+        return $this->redirectToRoute('show_dashboard');
+        
     }
 }

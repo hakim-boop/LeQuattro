@@ -1,32 +1,26 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Tableau de bord
+{% block title %}Voir les archives
 {% endblock %}
 
 {% block body %}
 
-	<h1 class="text-center my-3">Tableau de bord</h1>
+	<h1 class="text-center my-3 text-warning">Les Archives</h1>
 
-	{# Flashes #}
+
 	<div class="row">
 		<div class="col-6 mx-auto">
-
-			{% include "include/_flashes.html.twig" %}
-
+			{% include 'include/_flashes.html.twig' %}
 		</div>
 	</div>
 
-	{# Buttons #}
-	<div class="row my-5 mx-auto justify-content-evenly col-10">
 
-		<div class="col-5">
-			<a class="btn btn-outline-dark " href="">Ajouter une chambre</a>
+	<div class="row my-5 mx-auto">
+		<div class="col-4">
+			<a class="btn btn-sm btn-outline-dark" href="{{ path('show_dashboard') }}">
+				<i class="fa-solid fa-arrow-left"></i>
+				Retour au tableau de bord</a>
 		</div>
-
-		<div class="col-5">
-			<a class="btn btn-outline-dark " href="{{ path('show_archives') }}">Voir les archives</a>
-		</div>
-
 	</div>
 
 
@@ -61,15 +55,19 @@
 							<td class="text-center">{{ membre.civilite}}</td>
 							<td class="text-center">
 
-								<a href="{{ path('update_membre', {'id': membre.id}) }}" class="text-warning" title="Modifier le membre">
-									<i class="fa fa-user-edit"></i>
+								<a href="{{ path('restore_membre', {'id': membre.id}) }}" class="text-info" title="Restaurer le membre">
+									<i class="fa-solid fa-trash-arrow-up"></i>
 								</a>
 
-								<a href="{{ path('soft_delete_membre', {'id': membre.id}) }}" class="text-danger" title="Archiver le membre" onclick="return confirm('Voulez-vous archiver ce membre ?')">
+								<a href="{{ path('hard_delete_membre', {'id': membre.id}) }}" class="text-danger" title="Supprimer le membre" onclick="return confirm('Voulez-vous supprimer définitivement ce membre ?')">
 									<i class="fa fa-trash"></i>
 								</a>
 
 							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7" class="bg-warning text-center align-middle">Aucun article archivé</td>
 						</tr>
 
 					{% endfor %}
@@ -77,4 +75,5 @@
 				</tbody>
 			</table>
 		</div>
+
 	{% endblock %}
