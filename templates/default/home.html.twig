@@ -1,11 +1,14 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Swan DUVAL
-{% endblock %}
+{% block title %}Le Quattro{% endblock %}
 
 {% block body %}
 
-	{% include "include/_flashes.html.twig" %}
+	<div class="row">
+		<div class="col-6 mx-auto">
+			{% include 'include/_flashes.html.twig' %}
+		</div>
+	</div>
 
 
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
@@ -16,13 +19,13 @@
 		</div>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="..." class="d-block w-100" alt="...">
+				<img src="" class="d-block w-100" alt="">
 			</div>
 			<div class="carousel-item">
-				<img src="..." class="d-block w-100" alt="...">
+				<img src="#" class="d-block w-100" alt="...">
 			</div>
 			<div class="carousel-item">
-				<img src="..." class="d-block w-100" alt="...">
+				<img src="#" class="d-block w-100" alt="...">
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

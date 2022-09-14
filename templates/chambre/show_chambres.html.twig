@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Chambres{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center my-3">Nos Chambres</h1>
+
+	{# {% include "chambre/index_chambres.html.twig" %} #}
+
+	{% include "include/_chambre_categorie.html.twig" %}
+
+    
+
+{# {{ render(url('create_chambre')) }} #}
+
+{% endblock %}

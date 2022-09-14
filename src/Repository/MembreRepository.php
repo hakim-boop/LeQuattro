@@ -56,6 +56,16 @@ class MembreRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->add($user, true);
     }
 
+    public function findAllArchived(string $order = "ASC")
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.deletedAt IS NOT NULL')
+            ->orderBy('c.deletedAt', $order)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Membre[] Returns an array of Membre objects
 //     */
