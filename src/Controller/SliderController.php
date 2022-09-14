@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,60 +39,74 @@ class SliderController extends AbstractController
         $form = $this->createForm(SliderFormType::class, $slider)
             ->handleRequest($request);
 
-        // if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        //     $slider->setCreatedAt(new DateTime);
-        //     $slider->setUpdatedAt(new DateTime);
+            $slider->setCreatedAt(new DateTime);
+            $slider->setUpdatedAt(new DateTime);
 
-        //     # On variabilise le fichier de la photo dans $photo.
-        //     # On obtient un objet de type UploadedFile()
-        //     /** @var UploadedFile $photo */
-        //     $photo = $form->get('photo')->getData();
+            # On variabilise le fichier de la photo dans $photo.
+            # On obtient un objet de type UploadedFile()
+            /** @var UploadedFile $photo */
+            $photo = $form->get('photo')->getData();
 
-        //     if ($photo) {
+            if ($photo) {
 
-        //         $this->handleFile($slider, $photo, $slugger);
-        //     } // end if $photo
+                $this->handleFile($slider, $photo, $slugger);
+            } // end if $photo
 
-        //     $entityManager->persist($slider);
-        //     $entityManager->flush();
+            $entityManager->persist($slider);
+            $entityManager->flush();
 
-        //     $this->addFlash('success', 'Vous avez ajouté une photo dans le carrousel !');
-        //     return $this->redirectToRoute('show_slider');
-        // } // end if $form
+            $this->addFlash('success', 'Vous avez ajouté une photo dans le carrousel !');
+            return $this->redirectToRoute('show_slider');
+        } // end if $form
 
         return $this->render('admin/create_slider.html.twig', [
             'form' => $form->createView()
         ]);
+    } //? end create
+
+        // ? fonction softDelete()
+        #[Route('/archiver-une-photo/{id}', name: 'soft_delete_slider', methods: ['GET'])]
+        public function softDeleteProduit(Slider $slider, EntityManagerInterface $entityManager): RedirectResponse
+        {
+            $slider->setDeletedAt(new dateTime());
+    
+            $entityManager->persist($slider);
+            $entityManager->flush($slider);
+    
+            $this->addFlash('success', 'La photo a bien été archivé !');
+            return $this->redirectToRoute('show_slider');
+        }
+        // ? end fonction softDelete()
+
+    // ************************************ PRIVATE FUNCTION *********************************************
+
+    private function handleFile(Slider $slider, UploadedFile $photo, SluggerInterface $slugger): void
+    {
+        # 1 - Déconstruire le nom du fichier
+        # a - On récupère l'extension grâce à la méthode guessExtension()
+        $extension = '.' . $photo->guessExtension();
+
+        # 2 - Sécuriser le nom et reconstruire le nouveau nom du fichier
+        # a - On assainit le nom du fichier pour supprimer les espaces et les accents.
+        $safeFilename = $slugger->slug($photo->getClientOriginalName());
+        //                $safeFilename = $slugger->slug($produit->getTitle());
+
+        # b - On reconstruit le nom du fichier
+        # uniqid() est une fonction native de PHP et génère un identifiant unique.
+        # Cela évite les possibilités de doublons
+        $newFilename = $safeFilename . '_' . uniqid() . $extension;
+
+        # 3 - Déplacer le fichier dans le bon dossier.
+        // ? On utilise un try/catch lorsqu'une méthode "throws" (lance) une Exception (erreur)
+        try {
+            $photo->move($this->getParameter('uploads_dir'), $newFilename);
+            $slider->setPhoto($newFilename);
+        } catch (FileException $exception) {
+            $this->addFlash('warning', 'La photo du produit ne s\'est pas importée avec succès. Veuillez réessayer.');
+            // return $this->redirectToRoute('create_produit');
+        }
     }
-
-    // // ************************************ PRIVATE FUNCTION *********************************************
-
-    // private function handleFile(Slider $slider, UploadedFile $photo, SluggerInterface $slugger): void
-    // {
-    //     # 1 - Déconstruire le nom du fichier
-    //     # a - On récupère l'extension grâce à la méthode guessExtension()
-    //     $extension = '.' . $photo->guessExtension();
-
-    //     # 2 - Sécuriser le nom et reconstruire le nouveau nom du fichier
-    //     # a - On assainit le nom du fichier pour supprimer les espaces et les accents.
-    //     $safeFilename = $slugger->slug($photo->getClientOriginalName());
-    //     //                $safeFilename = $slugger->slug($produit->getTitle());
-
-    //     # b - On reconstruit le nom du fichier
-    //     # uniqid() est une fonction native de PHP et génère un identifiant unique.
-    //     # Cela évite les possibilités de doublons
-    //     $newFilename = $safeFilename . '_' . uniqid() . $extension;
-
-    //     # 3 - Déplacer le fichier dans le bon dossier.
-    //     // ? On utilise un try/catch lorsqu'une méthode "throws" (lance) une Exception (erreur)
-    //     try {
-    //         $photo->move($this->getParameter('uploads_dir'), $newFilename);
-    //         $slider->setPhoto($newFilename);
-    //     } catch (FileException $exception) {
-    //         $this->addFlash('warning', 'La photo du produit ne s\'est pas importée avec succès. Veuillez réessayer.');
-    //         // return $this->redirectToRoute('create_produit');
-    //     }
-    // }
 
 } //? end CLass
