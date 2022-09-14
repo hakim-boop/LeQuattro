@@ -6,14 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends AbstractController
+class ServicesController extends AbstractController
 {
-    #[Route('/', name: 'default_home', methods:['GET'])]
-    public function home(): Response
+    #[Route('/spa', name: 'services_spa', methods:['GET'])]
+    public function spa(): Response
     {
-        return $this->render('default/home.html.twig');
+        return $this->render('services/show_spa.html.twig');
             
+        
     }
-
-    
 }
