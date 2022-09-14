@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Sliderlider
+{% block title %}Slider
 {% endblock %}
 
 {% block body %}
@@ -12,9 +12,9 @@
 			</a>
 		</div>
 		{# <div class="col-6 mx-auto">
-									<a href="{{ path('show_trash') }}" class="d-block mx-auto col-4 btn btn-primary">Archives <i class="fa fa-eye"></i>
-									</a>
-								</div> #}
+											<a href="{{ path('show_trash') }}" class="d-block mx-auto col-4 btn btn-primary">Archives <i class="fa fa-eye"></i>
+											</a>
+										</div> #}
 	</div>
 
 
@@ -22,7 +22,7 @@
 		<div class="col-11 mx-auto my-5">
 
 			<table class="table table-hover">
-				<thead class="table-dark">
+				<thead class="table-danger">
 					<tr>
 						<th>#</th>
 						<th>Photo</th>
@@ -33,7 +33,7 @@
 				</thead>
 
 				<tbody>
-					{# {% for slider in sliders %}
+					{% for slider in slider %}
 						<tr>
 							<td>{{ slider.id }}</td>
 							<td>
@@ -41,10 +41,10 @@
 							</td>
 							<td>{{ produit.createdAt | date('d/m/Y') }}</td>
 							<td>
-								<a href="{{ path('update_produit', {'id': produit.id}) }}" title="Modifier le produit" class="text-center align-middle text-warning">
+								<a href="{{ path('update_slide', {'id': slider.id}) }}" title="Modifier la photo" class="text-center align-middle text-warning">
 									<i class="fa-solid fa-edit"></i>
 								</a>
-								<a href="{{ path('soft_delete_produit', {'id': produit.id}) }}" title="Archiver le produit" class="text-center align-middle text-danger" onclick="return confirm('Voulez-vous archiver ce produit ?\n Si oui, il sera off-line.')">
+								<a href="{{ path('soft_delete_slide', {'id': slider.id}) }}" title="Archiver la photo" class="text-center align-middle text-danger" onclick="return confirm('Voulez-vous archiver cette photo ?\n Si oui, ell n'apparaîtra plus dans le carrousel.')">
 									<i class="fa-solid fa-trash"></i>
 								</a>
 							</td>
@@ -54,7 +54,7 @@
 							<td colspan="11" class="bg-warning text-center">Aucune photo dans le slider</td>
 						</tr>
 
-					{% endfor %} #}
+					{% endfor %}
 				</tbody>
 			</table>
 
