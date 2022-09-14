@@ -4,13 +4,6 @@
     box-sizing: border-box;
 }
 
-:root{
-    --primary-color: white;
-    --secondary-color: black;
-    --third-color: gold;
-
+.description {
+    padding: 100px
 }
-
-/* h4{
-    color: var(--third-color) !important;
-} */
