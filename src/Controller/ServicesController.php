@@ -8,11 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ServicesController extends AbstractController
 {
-    #[Route('/services', name: 'app_services')]
-    public function index(): Response
+    #[Route('/restaurant', name: 'restaurant', methods:['GET'])]
+    public function restaurant(): Response
     {
-        return $this->render('services/restaurant.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
+        return $this->render('services/restaurant.html.twig');
     }
 }
