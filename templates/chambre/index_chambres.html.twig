@@ -1,0 +1,31 @@
+
+
+    <h1 class="text-center my-3">Catégorie  {# {{ category.name }} #}</h1>
+
+    <div class="row">
+        <div class="col-10 mx-auto my-5">
+
+            {% for chambre in chambres | reverse %}
+
+                <div class="row mb-4 border-top p-3">
+                    <a href="{{ path('show_chambres',  ) }}" title="Voir la chambre" class="d-flex text-decoration-none">
+
+                        <div class="col-5">
+                            <img src="{{ asset('uploads/' ~ chambre.photo) }}" alt="{{ chambre.titre }}" idth="120" height="78" class="img-custom"class="img-custom rounded">
+                        </div>
+
+                        <div class="col-7 ms-4">
+                            <h2 class="text-dark align-middle">{{ chambre.titre }}</h2>
+                            <p class="text-muted align-middle">{{ chambre.descriptionCourte }}</p>
+                        </div>
+
+                    </a>
+                </div>
+
+            {% else %}
+                <h3 class="text-center text-warning mt-2">Aucune chambres pour cette catégorie !</h3>
+            {% endfor %}
+
+        </div>
+    </div>
+
