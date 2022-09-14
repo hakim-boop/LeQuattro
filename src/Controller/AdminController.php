@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use DateTime;
 use App\Entity\Membre;
 use App\Form\UpdateMembreFormType;
@@ -100,5 +101,17 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('show_dashboard');
         
+    }
+
+    #[Route('/voir-contact', name: 'show_contact', methods: ['GET'])]
+    public function showContact(EntityManagerInterface $entityManager): Response
+    {
+        $contacts = $entityManager->getRepository(Contact::class)->findBy([
+            "deletedAt" => null,
+        ]);
+
+        return $this->render('admin/show_contact.html.twig', [
+            'contacts' => $contacts,
+        ]);
     }
 }
