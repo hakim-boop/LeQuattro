@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Vos avis
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-6 mx-auto">
+			{% include 'include/_flashes.html.twig' %}
+		</div>
+	</div>
+
+	<h1 class="text-center my-3">Vos avis</h1>
+
+
+	<div class="col-6 mx-auto">
+
+		<h3 class="mb-5">Vos avis :</h3>
+
+		{% for opinion in opinions | reverse %}
+
+			<div class="alert alert-dark mb-3" role="alert">
+				<h4 class="alert-heading">{{opinion.fullname}}
+					<span class="h6">posté
+						{{ opinion.createdAt | ago(locale='fr') }}</span>
+				</h4>
+
+				<p>{{ opinion.content }}</p>
+
+				<hr>
+
+				<p class="mb-0">Partager :
+					<a href="">
+						<i class="fa-brands fa-instagram"></i>
+					</a>
+					<a href="">
+						<i class="fa-brands fa-twitter"></i>
+					</a>
+					<a href="">
+						<i class="fa-brands fa-facebook"></i>
+					</a>
+
+
+				</p>
+
+
+			</div>
+
+
+		{% else %}
+
+			<div class="alert alert-dark mb-3" role="alert">
+				<p>Aucun avis</p>
+			</div>
+		{% endfor %}
+
+	</div>
+
+</div>{% endblock %}

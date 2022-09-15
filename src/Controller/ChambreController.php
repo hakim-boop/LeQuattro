@@ -140,7 +140,7 @@ class ChambreController extends AbstractController
         ]);
     } // end function update()// end function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
 
-     
+
 
     // DEBUT FONCTION SUPPRIMER CHAMBRES
     #[Route('/archiver-un-chambre/{id}', name: 'soft_delete_chambre', methods: ['GET'])]
@@ -153,9 +153,7 @@ class ChambreController extends AbstractController
 
         $this->addFlash('success', 'La chambre a bien été archivé !');
         return $this->redirectToRoute('show_backoffice_chambre');
-
     }  // end function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
-        
 
     // start function showBackofficeChambre() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
     #[Route('/voir-backoffice-chambre', name: 'show_backoffice_chambre', methods: ['GET'])]
@@ -170,29 +168,29 @@ class ChambreController extends AbstractController
 
 
 
-////////////////////////////////////////////////////////  FONCTIONS CREES PAR NOUS MEME /////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////  FONCTIONS CREES PAR NOUS MEME /////////////////////////////////////////////////////////////
 
 
-        private function handleFile(Chambre $chambre, UploadedFile $photo, SluggerInterface $slugger): void
-        {
+    private function handleFile(Chambre $chambre, UploadedFile $photo, SluggerInterface $slugger): void
+    {
 
-            $extension = '.' . $photo->guessExtension();
-    
+        $extension = '.' . $photo->guessExtension();
 
-            $safeFilename = $slugger->slug($photo->getClientOriginalName());
 
-            $newFilename = $safeFilename . '_' . uniqid() . $extension;
-    
-  
-            try {
+        $safeFilename = $slugger->slug($photo->getClientOriginalName());
 
-                $photo->move($this->getParameter('uploads_dir'), $newFilename);
+        $newFilename = $safeFilename . '_' . uniqid() . $extension;
 
-                $chambre->setPhoto($newFilename);
-            } catch (FileException $exception) {
-                $this->addFlash('warning', 'La photo de la chambre ne s\'est pas importée avec succès. Veuillez réessayer.');
-                //            return $this->redirectToRoute('create_chambre');
-            }
-        } // end class handleFile()
-    
+
+        try {
+
+            $photo->move($this->getParameter('uploads_dir'), $newFilename);
+
+            $chambre->setPhoto($newFilename);
+        } catch (FileException $exception) {
+            $this->addFlash('warning', 'La photo de la chambre ne s\'est pas importée avec succès. Veuillez réessayer.');
+            //            return $this->redirectToRoute('create_chambre');
+        }
+    } // end class handleFile()
+
 }
