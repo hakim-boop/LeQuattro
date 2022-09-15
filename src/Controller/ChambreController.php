@@ -5,8 +5,10 @@ namespace App\Controller;
 use DateTime;
 
 use App\Entity\Chambre;
+use App\Entity\Category;
 use App\Form\ChambreFormType;
 use App\Repository\ChambreRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +22,15 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class ChambreController extends AbstractController
 {
      #[Route('/voir-chambres', name: 'show_chambres', methods: ['GET'])]   
-     public function showChambres( EntityManagerInterface $entityManager): Response
+     public function showChambres( CategoryRepository $repository, EntityManagerInterface $entityManager): Response
         {
+            $category = new Category();
         $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
-
+        $categories = $repository->findBy(['deletedAt' => null], ['name' => 'ASC']);
         return $this->render('chambre/show_chambres.html.twig', [
             'chambres' => $chambres,
-
+            'category' => $category,
+            'categories' => $categories
         ]);
 
         } // end of showChambre() -> POUR AFFICHER LES CHAMBRES
