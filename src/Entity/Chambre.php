@@ -39,6 +39,9 @@ class Chambre
     #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Commande::class)]
     private Collection $commandes;
 
+    #[ORM\ManyToOne(inversedBy: 'relation')]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -90,7 +93,7 @@ class Chambre
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    public function setPhoto(string $photo = null): self
     {
         $this->photo = $photo;
 
@@ -135,6 +138,18 @@ class Chambre
                 $commande->setChambre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

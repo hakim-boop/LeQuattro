@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Chambre;
+use App\Entity\Category;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -39,6 +42,17 @@ class ChambreFormType extends AbstractType
                 ],
                 'help' => 'Fichiers autorisés: .jpg, .png',
             ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => "Catégorie de la chambre",
+                # On utilise le queryBuilder() pour récupérer uniquement les catégories non archivées !
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.deletedAt IS NULL')
+                        ->orderBy('c.name', 'ASC');
+                }
+            ])
             ->add('prixJournalier', TextType::class, [
                 'label' => 'Prix unitaire',
             ])
@@ -56,6 +70,8 @@ class ChambreFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Chambre::class,
+            'allow_file_upload' => true,
+            'photo' => null
         ]);
     }
 }

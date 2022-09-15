@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-
 class ChambreController extends AbstractController
 {
      #[Route('/voir-chambres', name: 'show_chambres', methods: ['GET'])]   
@@ -68,8 +67,8 @@ class ChambreController extends AbstractController
         } // end function create()
 
     // start function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!    
-    #[Route('/modifier-une-chambre', name: 'update_chambre', methods: ['GET', 'POST'])]
-    public function updateChambre(Chambre $chambre, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): RedirectResponse
+    #[Route('/modifier-une-chambre/{id}', name: 'update_chambre', methods: ['GET', 'POST'])]
+    public function updateChambre(Chambre $chambre, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         # Récupération de la photo actuelle
         $originalPhoto = $chambre->getPhoto();
@@ -78,12 +77,12 @@ class ChambreController extends AbstractController
             'photo' => $originalPhoto
         ])->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
 
             $chambre->setUpdatedAt(new DateTime());
             $photo = $form->get('photo')->getData();
 
-            if ($photo) {
+            if($photo) {
                 // Méthode créée par nous-même pour réutiliser du code qu'on répète (create() et update())
                 $this->handleFile($chambre, $photo, $slugger);
             } else {
@@ -94,14 +93,14 @@ class ChambreController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'La modification est réussie avec succès !');
-            return $this->redirectToRoute('show_chambres');
+            return $this->redirectToRoute('show_backoffice_chambre');
         } // end if $form
 
         return $this->render('chambre/create_chambre.html.twig', [
             'form' => $form->createView(),
             'chambre' => $chambre
         ]);
-    } // end function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
+    } // end function update()// end function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
 
      
 
@@ -120,13 +119,13 @@ class ChambreController extends AbstractController
     }  // end function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
         
 
-        // start function showBackofficeChambre() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
-        #[Route('/voir-backoffice-chambre', name: 'show_backoffice_chambre', methods: ['GET'])]
-        public function showBackofficeChambre(EntityManagerInterface $entityManager): Response
-        {   
-            $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
+    // start function showBackofficeChambre() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
+    #[Route('/voir-backoffice-chambre', name: 'show_backoffice_chambre', methods: ['GET'])]
+    public function showBackofficeChambre(EntityManagerInterface $entityManager): Response
+    {   
+        $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
 
-            return $this->render('chambre/back_office_chambre.html.twig', [
+        return $this->render('chambre/back_office_chambre.html.twig', [
                 'chambres' => $chambres,
             ]);
         } // end function showBackofficeChambre() 
