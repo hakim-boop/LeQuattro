@@ -3,8 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Chambre;
+use App\Entity\Category;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -25,6 +29,14 @@ class ChambreFormType extends AbstractType
             ])
             ->add('descriptionLongue',  TextareaType::class, [
                 'label' => 'Contenu'
+            ])
+            ->add('category', ChoiceType::class, [
+                'label' => 'Catégorie',
+                'choices' => [
+                    'Classique' => 'classique',
+                    'Confort' => 'confort', 
+                    'Suite' => 'suite'
+                ]
             ])
             ->add('photo', FileType::class, [
                 'label' => 'Photo',
@@ -56,6 +68,8 @@ class ChambreFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Chambre::class,
+            'allow_file_upload' => true,
+            'photo' => null
         ]);
     }
 }

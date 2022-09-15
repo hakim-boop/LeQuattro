@@ -1,0 +1,45 @@
+   {% extends "base.html.twig" %}
+
+{% block title %}Chambres{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        {# C'est le tableau BACKOFFICE qui montre des categories en bdd#}
+                
+    </div>
+            <h2 class="text-center">Toutes les catégories</h2>
+
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Alias</th>
+                        <th>Créée le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td class="text-center">{{ category.id }}</td>
+                            <td class="text-center">{{ category.name }}</td>
+                            <td class="text-center">{{ category.alias }}</td>
+                            <td class="text-center">{{ category.createdAt | date('d/m/Y') }}</td>
+                            <td class="text-center">
+                                <a href="{{ path('update_category', {'id': category.id}) }}" class="text-info" title="Modifier la catégorie"><i class="fa fa-edit"></i></a>
+                                <a href="{{ path('soft_delete_category', {'id': category.id}) }}" class="text-danger" title="Archiver la catégorie" onclick="return confirm('Voulez-vous archiver cette catégorie ?')"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="bg-info text-center align-middle">Aucune catégorie ajoutée</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {# ################# TABLE 2 ################# #}
+
+        {% endblock %}
