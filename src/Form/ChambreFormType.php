@@ -57,7 +57,7 @@ class ChambreFormType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto btn btn-primary col-3'
+                    'class' => 'd-block mx-auto btn btn-dark col-3'
                 ],
             ])
 

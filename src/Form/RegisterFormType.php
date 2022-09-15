@@ -63,7 +63,7 @@ class RegisterFormType extends AbstractType
                 'label' => "S'inscrire",
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto my-3 col-4 btn btn-primary'
+                    'class' => 'd-block mx-auto my-3 col-4 btn btn-dark'
                 ],
             ]);
     }
