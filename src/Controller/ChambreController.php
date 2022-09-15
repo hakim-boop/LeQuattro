@@ -22,20 +22,54 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class ChambreController extends AbstractController
 {
      #[Route('/voir-chambres', name: 'show_chambres', methods: ['GET'])]   
-     public function showChambres( CategoryRepository $repository, EntityManagerInterface $entityManager): Response
+     public function showChambres(EntityManagerInterface $entityManager): Response
         {
-            $category = new Category();
-        $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
-        $categories = $repository->findBy(['deletedAt' => null], ['name' => 'ASC']);
-        return $this->render('chambre/show_chambres.html.twig', [
-            'chambres' => $chambres,
-            'category' => $category,
-            'categories' => $categories
-        ]);
+            // $category = new Category();
+            // $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
+            // $categories = $repository->findBy(['deletedAt' => null], ['name' => 'ASC']);
+            return $this->render('chambre/show_chambres.html.twig', [
+                // 'chambres' => $chambres,
+                // 'category' => $category,
+                // 'categories' => $categories
+            ]);
 
         } // end of showChambre() -> POUR AFFICHER LES CHAMBRES
+
+        #[Route('/voir-chambres/{category}', name: 'show_chambres_from_category', methods: ['GET'])]
+        public function showChambresFromCategory(string $category, ChambreRepository $chambreRepository): Response
+        {
+            $chambresFromCategory = $chambreRepository->findBy(['deletedAt' => null, 'category' => $category]);
+
+            return  $this->render('chambre/show_chambres_from_category.html.twig', [
+                'chambres' => $chambresFromCategory,
+                'category' => $category
+            ]);
+        }
+
+        #[Route('/voir-une-chambre/{id}', name: 'show_chambre', methods: ['GET'])]
+        public function showArticle(Chambre $chambre, EntityManagerInterface $entityManager): Response
+        {    
+            // $category = new Category();
+             $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
+            //  $chambre = $repository->findBy([
+            //     'deletedAt' => null,
+            //     // 'category' => $category->getId()
+            // ]);
+    
+            // $categories = $repository->findBy(['deletedAt' => null], ['name' => 'ASC']);
+            return $this->render('chambre/show_chambre_solo.html.twig', [
+                'chambre' => $chambre,
+                'chambres' => $chambres,
+                // 'category' => $category,
+                // 'categories' => $categories
+                
+            ]);
+        } // POUR AFFICHER UNE  CHAMBRE INDIVIDUELEMENT 
+
         
-        #[Route('/ajouter-une-chambre', name: 'create_chambre', methods: ['GET', 'POST'])]
+
+        
+        #[Route('/admin/ajouter-une-chambre', name: 'create_chambre', methods: ['GET', 'POST'])]
         public function createChambre( Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
         {
             // $chambre = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
@@ -62,7 +96,7 @@ class ChambreController extends AbstractController
                 $entityManager->flush();
     
                 $this->addFlash('success', 'La chambre ajoutée avec succès !');
-                return $this->redirectToRoute('show_chambres');
+                return $this->redirectToRoute('show_dashboard');
             } // end if $form
     
             return $this->render('chambre/create_chambre.html.twig', [
@@ -129,7 +163,7 @@ class ChambreController extends AbstractController
     {   
         $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
 
-        return $this->render('chambre/back_office_chambre.html.twig', [
+        return $this->render('admin/back_office_chambre.html.twig', [
                 'chambres' => $chambres,
             ]);
         } // end function showBackofficeChambre() 

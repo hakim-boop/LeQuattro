@@ -39,8 +39,8 @@ class Chambre
     #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Commande::class)]
     private Collection $commandes;
 
-    #[ORM\ManyToOne(inversedBy: 'relation')]
-    private ?Category $category = null;
+    #[ORM\Column(length: 15)]
+    private ?string $category = null;
 
     public function __construct()
     {
@@ -142,12 +142,12 @@ class Chambre
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory(): ?string
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    public function setCategory(string $category): self
     {
         $this->category = $category;
 
