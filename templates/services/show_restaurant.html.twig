@@ -6,8 +6,6 @@
 
 {% block body %}
 
-<script src="https://kit.fontawesome.com/14335bb50e.js" crossorigin="anonymous"></script>
-
 <h1 class="text-center my-3" font-family: "Edwardian Script ITC" font=bold  >Les RESTAURANTS</h1>
 
     <div class="row">
@@ -27,9 +25,7 @@
     <div class="carousel-item active">
       <img src="uploads/Background QF 517-5184x3456.jpg" display=flex height=600px width=700px alt="..." class="d-block w-100" display=flex>
       <div class="carousel-caption d-none d-md-block">
-      <h5 body {
-    font-family: "Edwardian Script ITC";
-    }>Le TREFLE A QUATRE FEUILLES</h5>
+      <h5>Le TREFLE A QUATRE FEUILLES</h5>
         <p>La brasserie du Quattro pour votre déjeuner.</p>
       </div>
     </div>
@@ -63,13 +59,14 @@
 <div>
 <img src="\uploads\experienced-head-chef-posing-proudly-modern-kitchen-his-team-background-84975264.jpg" display=left height=300px width=300px class="img-thumbnail" alt="...">
 
-Le Chef MOF et ses équipes vous accueillent dans les restaurants du QUATTRO pour un grand voyage culinaire.
+Le Chef François de la Cuillère et ses équipes vous accueillent dans les restaurants du QUATTRO pour un grand voyage culinaire.
 </div>
 </p>
 <p>
 Voici les cartes de nos restaurants:
 </p>
 <ul>
+
 
 <button type="button" class="btn btn-primary"
 .btn-bd-primary {
@@ -88,9 +85,39 @@ Voici les cartes de nos restaurants:
 }
 >Le Trèfle à quatre feuilles</button>
 
-<button type="button" class="btn btn-primary">Le Quatre Quart</button>
+<button type="button" class="btn btn-primary"
+.btn-bd-primary {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-blue);
+  --bs-btn-border-color: var(--bd-blue);
+  --bs-btn-border-radius: .5rem;
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #{shade-color($bd-blue, 10%)};
+  --bs-btn-hover-border-color: #{shade-color($bd-blue, 10%)};
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #{shade-color($bd-blue, 20%)};
+  --bs-btn-active-border-color: #{shade-color($bd-blue, 20%)};
+}
+>Le Quatre Quart</button>
 
-<button type="button" class="btn btn-primary">Aux Quatre Saisons</button>
+<button type="button" class="btn btn-primary"
+.btn-bd-primary {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-blue);
+  --bs-btn-border-color: var(--bd-blue);
+  --bs-btn-border-radius: .5rem;
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #{shade-color($bd-blue, 10%)};
+  --bs-btn-hover-border-color: #{shade-color($bd-blue, 10%)};
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #{shade-color($bd-blue, 20%)};
+  --bs-btn-active-border-color: #{shade-color($bd-blue, 20%)};
+}
+>Aux Quatre Saisons</button>
 
 
 
