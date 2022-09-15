@@ -44,10 +44,10 @@
 							<td>{{ slider.ordre }}</td>
 							<td>{{ slider.createdAt | date('d/m/Y') }}</td>
 							<td>
-								<a href="{#{ path('update_slide', {'id': slider.id}) }#}" title="Modifier la photo" class="text-center align-middle text-warning mx-2">
+								<a href="{{ path('update_slider', {'id': slider.id}) }}" title="Modifier la photo" class="text-center align-middle text-warning mx-2">
 									<i class="fa-solid fa-edit"></i>
 								</a>
-								<a href="{#{ path('soft_delete_slide', {'id': slider.id}) }#}" title="Archiver la photo" class="text-center align-middle text-danger mx-2" onclick="return confirm('Voulez-vous archiver cette photo ?\n Si oui, ell n'apparaîtra plus dans le carrousel.')">
+								<a href="{{ path('soft_delete_slider', {'id': slider.id}) }}" title="Archiver la photo" class="text-center align-middle text-danger mx-2" onclick="return confirm('Voulez-vous archiver cette photo ?\n Si oui, ell n'apparaîtra plus dans le carrousel.')">
 									<i class="fa-solid fa-trash"></i>
 								</a>
 							</td>

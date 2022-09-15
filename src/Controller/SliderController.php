@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Slider;
 use App\Form\SliderFormType;
+use App\Repository\SliderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,6 @@ class SliderController extends AbstractController
         return $this->render('admin/show_slider.html.twig', [
             'slider' => $slider
         ]);
-
     } // end function show()
 
 
@@ -66,40 +66,66 @@ class SliderController extends AbstractController
         ]);
     } //? end create
 
-        // ? fonction softDelete()
-        #[Route('/archiver-une-photo/{id}', name: 'soft_delete_slider', methods: ['GET'])]
-        public function softDeleteProduit(Slider $slider, EntityManagerInterface $entityManager): RedirectResponse
-        {
-            $slider->setDeletedAt(new dateTime());
-    
+    // ? fonction update
+    #[Route('/modifier-un-slider/{id}', name: 'update_slider', methods: ['GET', 'POST'])]
+    public function updateProduit(Slider $slider, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
+        // ? recuperation de la photo actuelle
+        $originalPhoto = $slider->getPhoto();
+        $form = $this->createForm(SliderFormType::class, $slider, [
+            'photo' => $originalPhoto
+        ])->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $slider->setUpdatedAt(new DateTime());
+            $photo = $form->get('photo')->getData();
+
+            if ($photo) {
+                $this->handleFile($slider, $photo, $slugger);
+            } else {
+                $slider->setPhoto($originalPhoto);
+            }
+
             $entityManager->persist($slider);
             $entityManager->flush($slider);
-    
-            $this->addFlash('success', 'La photo a bien été archivé !');
+
+            $this->addFlash('success', 'Le slider est bien modifié !');
             return $this->redirectToRoute('show_slider');
         }
-        // ? end fonction softDelete()
+
+        return $this->render('admin/update_slider.html.twig', [
+            'form' => $form->createView(),
+            'slider' => $slider
+        ]);
+    } // ? end function update()
+
+    // ? fonction softDelete()
+    #[Route('/archiver-une-photo/{id}', name: 'soft_delete_slider', methods: ['GET'])]
+    public function softDeleteProduit(Slider $slider, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $slider->setDeletedAt(new dateTime());
+
+        $entityManager->persist($slider);
+        $entityManager->flush($slider);
+
+        $this->addFlash('success', 'La photo a bien été archivée !');
+        return $this->redirectToRoute('show_slider');
+    }
+    // ? end fonction softDelete()
 
     // ************************************ PRIVATE FUNCTION *********************************************
 
     private function handleFile(Slider $slider, UploadedFile $photo, SluggerInterface $slugger): void
     {
-        # 1 - Déconstruire le nom du fichier
-        # a - On récupère l'extension grâce à la méthode guessExtension()
+
         $extension = '.' . $photo->guessExtension();
 
-        # 2 - Sécuriser le nom et reconstruire le nouveau nom du fichier
-        # a - On assainit le nom du fichier pour supprimer les espaces et les accents.
         $safeFilename = $slugger->slug($photo->getClientOriginalName());
         //                $safeFilename = $slugger->slug($produit->getTitle());
 
-        # b - On reconstruit le nom du fichier
-        # uniqid() est une fonction native de PHP et génère un identifiant unique.
-        # Cela évite les possibilités de doublons
         $newFilename = $safeFilename . '_' . uniqid() . $extension;
 
-        # 3 - Déplacer le fichier dans le bon dossier.
-        // ? On utilise un try/catch lorsqu'une méthode "throws" (lance) une Exception (erreur)
+
         try {
             $photo->move($this->getParameter('uploads_dir'), $newFilename);
             $slider->setPhoto($newFilename);
@@ -108,5 +134,4 @@ class SliderController extends AbstractController
             // return $this->redirectToRoute('create_produit');
         }
     }
-
 } //? end CLass
