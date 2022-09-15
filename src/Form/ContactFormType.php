@@ -28,7 +28,7 @@ class ContactFormType extends AbstractType
             ])
             
             ->add('email', EmailType::class, [
-                'label' => 'Choisissez un email',
+                'label' => 'Email',
                 'constraints' => [
                     new Email(),
                     new Length([
@@ -69,7 +69,7 @@ class ContactFormType extends AbstractType
                     'class' => 'd-block mx-auto my-3 col-4 btn btn-primary'
                 ],
             ]);
-        ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

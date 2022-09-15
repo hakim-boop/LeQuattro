@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Avis;
 use App\Form\AvisFormType;
 use App\Repository\AvisRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,24 +17,38 @@ class AvisController extends AbstractController
     #[Route('/avis', name: 'avis', methods: ['GET', 'POST'])]
     public function avis(Request $request, AvisRepository $repository): Response
     {
-        $avis = new Avis();
+        $opinion = new Avis();
 
-        $form = $this->createForm(AvisFormType::class, $avis)
+        $form = $this->createForm(AvisFormType::class, $opinion)
         ->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $avis->setCreatedAt(new DateTime());
-            $avis->setUpdatedAt(new DateTime());
+            $opinion->setCreatedAt(new DateTime());
+            $opinion->setUpdatedAt(new DateTime());
 
-            $repository->add($avis, true);
+            $repository->add($opinion, true);
 
-            $this->addFlash('success', 'Votre demande a été effectuée avec succès !');
-            return $this->redirectToRoute('default_home');
+            $this->addFlash('success', 'Votre avis a été poster avec succès !');
+            return $this->redirectToRoute('avis');
         }
 
-        return $this->render('render/avis.html.twig', [
+        return $this->render('rendered/avis.html.twig', [
             'form' => $form->createView()
         ]);
-    }    
+    }
+    
+    #[Route('/avis', name: 'show_avis', methods: ['GET'])]
+    public function showAvis(EntityManagerInterface $entityManager): Response
+    {
+        $opinions = $entityManager->getRepository(Avis::class)->findBy([
+            "deletedAt" => null,
+        ]);
+
+        dd($opinions);
+
+        return $this->render('rendered/avis.html.twig', [
+            'opinions' => $opinions,
+        ]);
+    }
 }

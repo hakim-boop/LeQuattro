@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AvisFormType extends AbstractType
 {
@@ -25,7 +27,7 @@ class AvisFormType extends AbstractType
             ])
             
             ->add('email', EmailType::class, [
-                'label' => 'Choisissez un email',
+                'label' => 'Email',
                 'constraints' => [
                     new Email(),
                     new Length([
@@ -35,14 +37,22 @@ class AvisFormType extends AbstractType
                 ]
             ])
             
-            ->add('content', TextType::class, [
-                'label' => 'Sujet',
+            ->add('content', TextareaType::class, [
+                'label' => 'Message',
                 'constraints' => [
                     new Length([
                         'min' => 4,
                         'max' => 100,
                     ]),
                 ]
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'label' => "Envoyer",
+                'validate' => false,
+                'attr' => [
+                    'class' => 'd-block mx-auto my-3 col-4 btn btn-primary'
+                ],
             ])
         ;
     }
