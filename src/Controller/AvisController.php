@@ -30,7 +30,7 @@ class AvisController extends AbstractController
             $repository->add($opinion, true);
 
             $this->addFlash('success', 'Votre avis a été poster avec succès !');
-            return $this->redirectToRoute('avis');
+            return $this->redirectToRoute('show_avis');
         }
 
         return $this->render('rendered/avis.html.twig', [
@@ -38,16 +38,14 @@ class AvisController extends AbstractController
         ]);
     }
     
-    #[Route('/avis', name: 'show_avis', methods: ['GET'])]
+    #[Route('/voir-les-avis', name: 'show_avis', methods: ['GET'])]
     public function showAvis(EntityManagerInterface $entityManager): Response
     {
         $opinions = $entityManager->getRepository(Avis::class)->findBy([
             "deletedAt" => null,
         ]);
 
-        dd($opinions);
-
-        return $this->render('rendered/avis.html.twig', [
+        return $this->render('rendered/show_avis.html.twig', [
             'opinions' => $opinions,
         ]);
     }

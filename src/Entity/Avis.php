@@ -83,4 +83,9 @@ class Avis
 
         return $this;
     }
+
+    public function getFullname(): string
+    {
+        return $this->getPrenom() . ' ' . $this->getNom();
+    }
 }
