@@ -11,6 +11,9 @@
 						<a class="nav-link active" aria-current="page" href="{{ path('default_home') }}">Accueil</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="#">L'hôtel</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="{{ path('show_chambres') }}">Chambres</a>
 					</li>
 					<li class="nav-item">
@@ -24,22 +27,19 @@
 						<a class="nav-link" href="#">Réservation</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Avis</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">L'hôtel</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" href="#">Actualités</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Avis</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Contact</a>
 					</li>
 
 					{% if is_granted("ROLE_USER") %}
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
-					</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+						</li>
 					{% endif %}
 
 
@@ -60,7 +60,7 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('show_backoffice_chambre') }}">Backoffice Chambre</a>
-					       		</li>
+								</li>
 							</ul>
 						</li>
 					{% endif %}
@@ -70,4 +70,3 @@
 		</div>
 	</nav>
 </header>
-
