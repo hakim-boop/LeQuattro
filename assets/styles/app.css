@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
-.description {
-    padding: 10px;
+.intro {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

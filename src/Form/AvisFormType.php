@@ -51,7 +51,7 @@ class AvisFormType extends AbstractType
                 'label' => "Envoyer",
                 'validate' => false,
                 'attr' => [
-                    'class' => 'd-block mx-auto my-3 col-4 btn btn-primary'
+                    'class' => 'd-block mx-auto my-3 col-4 btn btn-dark'
                 ],
             ])
         ;
