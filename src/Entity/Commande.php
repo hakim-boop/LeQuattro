@@ -43,6 +43,7 @@ class Commande
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Chambre $chambre = null;
+    
 
     public function getId(): ?int
     {

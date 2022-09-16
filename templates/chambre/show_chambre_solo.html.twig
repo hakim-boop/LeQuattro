@@ -4,10 +4,26 @@
 
 {% block body %}
 
-    <h1 class="text-center my-3">Réserver un chambre</h1>
+    <h1 class="text-center my-3">Réserver une chambre</h1>
 
-          
-    
+           <body class=" fr_FR brand-None page-880 destinationtemplate " data-lang="fr_FR">
+
+
+        <!-- georegion=77,country_code=FR,region_code=IDF,city=PARIS,lat=48.87,long=2.33,timezone=GMT+1,continent=EU,throughput=vhigh,bw=5000,network=sfr,asnum=15557,location_id=0 -->
+		<article>
+
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active col-6 mx-auto">
+      <img src="{{ asset('uploads/' ~ chambre.photo) }}" class="d-block w-300 mx-center" alt="...">
+    </div>
+      <h3 class="">{{ chambre.titre }}</h3>
+      <h4 class="">{{ chambre.descriptionCourte }}</h4>
+   <p class="text-muted align-middle">{{ chambre.descriptionLongue }}</p>
+  </div>
+  <a href="{{ path('create_commande', {'id': chambre.id}) }}" class="btn btn-primary">Réserver</a>
+</div>
+
 
 
 {% endblock %}

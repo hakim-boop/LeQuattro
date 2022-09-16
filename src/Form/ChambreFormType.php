@@ -36,7 +36,7 @@ class ChambreFormType extends AbstractType
                     'Classique' => 'classique',
                     'Confort' => 'confort', 
                     'Suite' => 'suite'
-                ]
+                ],
             ])
             ->add('photo', FileType::class, [
                 'label' => 'Photo',
@@ -55,6 +55,7 @@ class ChambreFormType extends AbstractType
                 'label' => 'Prix unitaire',
             ])
             ->add('submit', SubmitType::class, [
+                'label' => "Valider",
                 'validate' => false,
                 'attr' => [
                     'class' => 'd-block mx-auto btn btn-dark col-3'
