@@ -22,4 +22,12 @@ class ServicesController extends AbstractController
             
         
     }
+
+    #[Route('/notre-hotel', name: 'show_hotel', methods:['GET'])]
+    public function hotel(): Response
+    {
+        return $this->render('services/show_hotel.html.twig');
+            
+        
+    }
 }
