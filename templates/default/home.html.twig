@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	
+
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-indicators">
 			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -20,7 +20,7 @@
 				</div>
 
 			{% endfor %}
-			
+
 		</div>
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -38,14 +38,42 @@
 		</div>
 	</div>
 
+
+	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-indicators">
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		</div>
+		<div class="carousel-inner">
+
+			{% for slider in sliders %}
+
+				<div class="carousel-item active">
+					<img src="{{ asset('uploads/' ~ slider.photo) }}" class="d-block w-100" alt="">
+				</div>
+
+			{% endfor %}
+
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+
 	<div
-		class="container marketing">
+		class="container marketing my-5">
 
 		<!-- Three columns of text below the carousel -->
-		<div class="row">
-			<div class="col-lg-4">
+		<div class="row d-flex justify-content-evenly">
+			<div class="col-3 text-center border border-dark p-3 m-3">
 				<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false">
-					<title>Placeholder</title>
+					<title>Nos menus</title>
 					<rect width="100%" height="100%" fill="#777"></rect>
 					<text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
 				</svg>
@@ -53,13 +81,13 @@
 				<h2 class="fw-normal">Restaurant</h2>
 				<p>Le Chef François de la Cuillère et ses équipes vous accueillent dans les restaurants de l'hôtel Quattro pour un grand voyage culinaire.</p>
 				<p>
-					<a class="btn btn-dark" href="#">View details »</a>
+					<a class="btn btn-dark rounded-0" href="#">Découvrez</a>
 				</p>
 			</div>
 			<!-- /.col-lg-4 -->
-			<div class="col-lg-4">
+			<div class="col-3 text-center  border border-dark p-3 m-3">
 				<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false">
-					<title>Placeholder</title>
+					<title>Détendez-vous</title>
 					<rect width="100%" height="100%" fill="#777"></rect>
 					<text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
 				</svg>
@@ -67,26 +95,26 @@
 				<h2 class="fw-normal">Spa</h2>
 				<p>Relaxez-vous dans la piscine intérieure, ressourcez-vous dans les bains bouillonnants et profitez de la chaleur du côté du hammam.</p>
 				<p>
-					<a class="btn btn-dark" href="#">View details »</a>
+					<a class="btn btn-dark rounded-0" href="#">Découvrez</a>
 				</p>
 			</div>
 			<!-- /.col-lg-4 -->
-			<div class="col-lg-4">
+			<div class="col-3 text-center border border-dark p-3 m-3">
 				<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveaspectratio="xMidYMid slice" focusable="false">
-					<title>Placeholder</title>
+					<title>Découvrez nos chambres</title>
 					<rect width="100%" height="100%" fill="#777"></rect>
 					<text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
 				</svg>
 
-				<h2 class="fw-normal">Chambre</h2>
-				<p>Découvrez nos chambres simples, comfort et nos suites d'exception pour une nuit ou plus.</p> <br>
+				<h2 class="fw-normal">Chambres</h2>
+				<p>Découvrez nos chambres simples, comfort et nos suites d'exception pour une nuit ou plus.</p>
+				<br>
 				<p>
-					<a class="btn btn-dark" href="#">View details »</a>
+					<a class="btn btn-dark rounded-0" href="#">Découvrez</a>
 				</p>
 			</div>
 			<!-- /.col-lg-4 -->
 		</div>
 		<!-- /.row -->
 
-
-{% endblock %}
+	{% endblock %}
