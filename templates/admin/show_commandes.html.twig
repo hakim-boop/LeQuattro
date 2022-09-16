@@ -1,0 +1,88 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Commandes
+{% endblock %}
+
+{% block body %}
+
+
+	{# {{ render(url('create_chambre')) }} #}
+
+
+	<h1 class="text-center my-3">Backoffice Commandes</h1>
+
+	{# C'est le tableau BACKOFFICE qui montre les commandes en bdd #}
+
+	<div class="row">
+		<div class="col-10 mx-auto my-4">
+
+			<div class="row my-5 mx-auto">
+				<div class="col-4">
+					<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_commande') }}">Ajouter ou modifier une commande</a>
+				</div>
+
+			</div>
+
+			<table class="table">
+				<thead class="table-dark">
+					<tr>
+						<th>Commande</th>
+						<th>Chambre</th>
+						<th>Date Arivée</th>
+						<th>Date départ</th>
+						<th>Prix total</th>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Téléphone</th>
+						<th>Email</th>
+						<th>Date et Heure Enregistrement</th>
+						<th>Actions</th>
+
+					</tr>
+				</thead>
+				<tbody>
+
+					{% for commande in commandes %}
+
+
+						<tr>
+							<td class="text-center">{{ commande.id }}</td>
+							<td class="text-center">{{ commande.chambre.id.category}}</td>
+							<td class="text-center">{{ commande.dateDebut | date('d/m/Y ') }}</td>
+							<td class="text-center">{{ commande.dateFin | date('d/m/Y ') }}</td>
+                            <td class="text-center">{{ commande.prixTotal }}</td>
+                            <td class="text-center">{{ commande.prenom }}</td>
+							<td>
+								{# <img src="{{ asset('uploads/' ~ commande.photo) }}" alt="image de produit" width="80" height="58" class="img-custom"></td> #}
+							<td class="text-center">{{ commande.nom }}</td>
+							<td class="text-center">{{ commande.telephone }}</td>
+							<td class="text-center">{{ commande.email }}</td>
+							<td class="text-center">{{ commande.updatedAt | date('d/m/Y H:i:s') }}</td>
+							<td
+								class="text-center">
+                                {# VOIR CHAMBRE  #}
+								<a href="{{ path('update_commande', {'id': commande.id}) }}" class="text-secondary" title="Modifier la commande">
+									<i class="fa fa-edit"></i>
+								</a>
+                                {# MODIFIER CHAMBRE  #}
+								<a href="{{ path('update_commande', {'id': commande.id}) }}" class="text-info" title="Modifier la commande">
+									<i class="fa fa-edit"></i>
+								</a>
+								{# SOFT DELETE #}
+								<a href="{{ path('soft_delete_commande', {'id': commande.id}) }}" class="text-danger" title="Archiver la commande" onclick="return confirm('Voulez-vous archiver cet commande ?')">
+									<i class="fa fa-trash"></i>
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7" class="bg-info text-center align-middle">Aucune commandes publié</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+{% endblock %}
