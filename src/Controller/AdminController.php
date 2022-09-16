@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
 use DateTime;
 use App\Entity\Membre;
+use App\Entity\Contact;
+use App\Entity\Commande;
 use App\Form\UpdateMembreFormType;
 use App\Repository\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
@@ -114,4 +116,16 @@ class AdminController extends AbstractController
             'contacts' => $contacts,
         ]);
     }
+    
+    #[Route('/admin/voir-les-commandes', name: 'show_commandes', methods: ['GET'])]
+    public function showCommandes(EntityManagerInterface $entityManager): Response
+    {
+        $commandes = $entityManager->getRepository(Commande::class)->findBy(['deletedAt' => null]);
+
+        return $this->render('admin/show_commandes.html.twig', [
+            'commandes' => $commandes,
+        ]);
+    }
+
+
 }

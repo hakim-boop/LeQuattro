@@ -24,16 +24,9 @@ class ChambreController extends AbstractController
      #[Route('/voir-chambres', name: 'show_chambres', methods: ['GET'])]   
      public function showChambres(EntityManagerInterface $entityManager): Response
         {
-            // $category = new Category();
-            // $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
-            // $categories = $repository->findBy(['deletedAt' => null], ['name' => 'ASC']);
-            return $this->render('chambre/show_chambres.html.twig', [
-                // 'chambres' => $chambres,
-                // 'category' => $category,
-                // 'categories' => $categories
-            ]);
+            return $this->render('chambre/show_chambres.html.twig');
 
-        } // end of showChambre() -> POUR AFFICHER LES CHAMBRES
+        } // end of showChambre() -> POUR AFFICHER TOUTES LES CHAMBRES
 
         #[Route('/voir-chambres/{category}', name: 'show_chambres_from_category', methods: ['GET'])]
         public function showChambresFromCategory(string $category, ChambreRepository $chambreRepository): Response
@@ -47,32 +40,23 @@ class ChambreController extends AbstractController
         }
 
         #[Route('/voir-une-chambre/{id}', name: 'show_chambre', methods: ['GET'])]
-        public function showArticle(Chambre $chambre, EntityManagerInterface $entityManager): Response
+        public function showChambre(Chambre $chambre, EntityManagerInterface $entityManager): Response
         {    
-            // $category = new Category();
+         
              $chambres = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
-            //  $chambre = $repository->findBy([
-            //     'deletedAt' => null,
-            //     // 'category' => $category->getId()
-            // ]);
-    
-            // $categories = $repository->findBy(['deletedAt' => null], ['name' => 'ASC']);
+       
             return $this->render('chambre/show_chambre_solo.html.twig', [
                 'chambre' => $chambre,
-                'chambres' => $chambres,
-                // 'category' => $category,
-                // 'categories' => $categories
-                
+                'chambres' => $chambres,                
             ]);
         } // POUR AFFICHER UNE  CHAMBRE INDIVIDUELEMENT 
 
         
 
-        
+        // start function create() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!   
         #[Route('/admin/ajouter-une-chambre', name: 'create_chambre', methods: ['GET', 'POST'])]
         public function createChambre( Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
         {
-            // $chambre = $entityManager->getRepository(Chambre::class)->findBy(['deletedAt' => null]);
             $chambre = new Chambre();
             
     
@@ -102,7 +86,7 @@ class ChambreController extends AbstractController
             return $this->render('chambre/create_chambre.html.twig', [
                 'form' => $form->createView()
             ]);
-        } // end function create()
+        } // end function create() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!
 
     // start function update() CETTE METHODE(fonction) EST A METTRE DANS ADMIN CONTROLLER !!!    
     #[Route('/modifier-une-chambre/{id}', name: 'update_chambre', methods: ['GET', 'POST'])]
@@ -192,5 +176,6 @@ class ChambreController extends AbstractController
             //            return $this->redirectToRoute('create_chambre');
         }
     } // end class handleFile()
+
 
 }
