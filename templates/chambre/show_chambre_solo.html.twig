@@ -21,7 +21,7 @@
       <h4 class="">{{ chambre.descriptionCourte }}</h4>
    <p class="text-muted align-middle">{{ chambre.descriptionLongue }}</p>
   </div>
-  <a href="{{ path('show_chambre', {'id': chambre.id}) }}" class="btn btn-primary">Réserver</a>
+  <a href="{{ path('create_commande', {'id': chambre.id}) }}" class="btn btn-primary">Réserver</a>
 </div>
 
 

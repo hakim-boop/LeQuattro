@@ -43,7 +43,7 @@
 
 
 						<tr>
-							<td class="text-center">{{ chambre.id }}</td>
+							<td class="text-center">{{ chambre.id  }}</td>
 							<td class="text-center">{{ chambre.titre | length > 20 ? chambre.titre | slice(0,20) ~ '...' : chambre.titre }}</td>
 							<td class="text-center">{{ chambre.descriptionCourte | length > 20 ? chambre.descriptionCourte | slice(0,20) ~ '...' : chambre.descriptionCourte }}</td>
 							<td class="text-center">{{ chambre.category | default('undefined') }}</td>

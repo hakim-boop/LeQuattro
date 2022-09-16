@@ -18,7 +18,7 @@
 
 			<div class="row my-5 mx-auto">
 				<div class="col-4">
-					<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_commande') }}">Ajouter ou modifier une commande</a>
+					<a class=" btn btn-sm btn-outline-dark" href="{{ path('create_commande') }}">Passer une commande</a>
 				</div>
 
 			</div>
@@ -47,9 +47,9 @@
 
 						<tr>
 							<td class="text-center">{{ commande.id }}</td>
-							<td class="text-center">{{ commande.chambre.id.category}}</td>
-							<td class="text-center">{{ commande.dateDebut | date('d/m/Y ') }}</td>
-							<td class="text-center">{{ commande.dateFin | date('d/m/Y ') }}</td>
+							<td class="text-center">{{ chambre.id }} {{ chambre.category }}</td>
+							<td class="text-center">{{ commande.dateDebut | date('d/m/Y H:i:s') }}</td>
+							<td class="text-center">{{ commande.dateFin | date('d/m/Y H:i:s') }}</td>
                             <td class="text-center">{{ commande.prixTotal }}</td>
                             <td class="text-center">{{ commande.prenom }}</td>
 							<td>
