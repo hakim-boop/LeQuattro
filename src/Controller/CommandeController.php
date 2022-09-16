@@ -34,24 +34,24 @@ class CommandeController extends AbstractController
 
             $commande->setChambre($chambre);
 
-            $prixDeBase = 180;
           
             $diff = $commande->getDateDebut()->diff($commande->getDateFin(), true);
             
-            dd($diff);
-            $prixTotalNuits = (int)$prixDeBase * (int)$diff;
+            // dd($diff->days);
 
+            $prixTotalNuits = $chambre->getPrixJournalier() * $diff->days;
+
+            // dd($prixTotalNuits);
             $commande->setPrixTotal($prixTotalNuits);
 
-           
-             
+                     
             
 
             $entityManager->persist($commande);
             $entityManager->flush();
 
             $this->addFlash('success', 'La commande ajoutée avec succès !');
-            return $this->redirectToRoute('show_dashboard');
+            return $this->redirectToRoute('default_home');
         } // end if $form
 
         return $this->render('chambre/create_commande.html.twig', [
