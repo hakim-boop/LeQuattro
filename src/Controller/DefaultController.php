@@ -20,5 +20,14 @@ class DefaultController extends AbstractController
         ]);
             
     }
+
+    #[Route('/hôtel', name: 'show_hotel', methods:['GET'])]
+    public function hotel(): Response
+    {
+        return $this->render('default/show_hotel.html.twig');
+            
+        
+    }
+
     
 } //? end class
