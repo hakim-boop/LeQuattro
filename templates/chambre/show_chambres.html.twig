@@ -1,70 +1,66 @@
 {% extends "base.html.twig" %}
 
-	{% block title %}Chambres par Catégorie{% endblock %}
+{% block title %}Chambres par Catégorie
+{% endblock %}
 
 {% block body %}
 
-    {# <h1 class="text-center my-3">Nos Chambres</h1> #}
+	{# <h1 class="text-center my-3">Nos Chambres</h1> #}
 
 	{# {% include "chambre/index_chambres.html.twig" %} #}
 
-	{# {% include "include/_chambre_categorie.html.twig" %} #}
+	{# {% include "include/_chambre_categorie.html.twig" %} #}<h1 class="text-center my-3"> Chambre par Catégorie
+	</h1>
 
+	<div class="row">
+		<div class="col-10 mx-auto my-5">
 
+			<div class="row mb-4 border-top p-3 bg-dark p-5 text-light">
+				<a href="{{ path('show_chambres_from_category', {'category': 'classique'}) }}" title="Voir " class="d-flex text-decoration-none">
 
+					<div class="row lg-col-5 md-col-10">
+						<h2 class="text-light">Les chambres classiques</h2>
+						<img src="{{ asset('/uploads/classique.jpg') }}" alt="Des chambres classiques mais luxueuses" width="500" class="rounded-0">
+					</div>
 
+					<div class="row col-7 ms-4 align-bottom my-auto">
+						<h3 class="text-light align-top">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus cupiditate, dignissimos consequatur, aliquam eligendi quaerat nostrum animi quae saepe, perferendis eveniet voluptatum doloribus cumque aliquid suscipit eum inventore vel!</h3>
+						<p class="text-light align-middle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, voluptatem. Blanditiis adipisci qui eum facere praesentium vitae ipsa esse laboriosam tempore voluptatem dolor cum id, voluptatum ratione, perferendis ipsum facilis.</p>
+					</div>
 
-    <h1 class="text-center my-3">Chambre par Catégorie </h1>
+				</a>
+			</div>
 
-    <div class="row">
-        <div class="col-10 mx-auto my-5">
+			<div class="row mb-4 border-top p-3 bg-dark p-5">
+				<a href="{{ path('show_chambres_from_category', {'category': 'confort'}) }}" title="Voir " class="d-flex text-decoration-none">
 
-                <div class="row mb-4 border-top p-3">
-                    <a href="{{ path('show_chambres_from_category', {'category': 'classique'})  }}" title="Voir " class="d-flex text-decoration-none">
+					<div class="row col-5">
+						<h2 class="text-light">Les chambres confort</h2>
+						<img src="{{ asset('/uploads/confort.jpg') }}" alt="Des chambres de grand luxe" width="500" class="rounded-0">
+					</div>
 
-                        <div class="col-5">
-                            <img src="" alt="" width="150"  class="img-custom rounded">
-							<h2>Les chambres classiques</h2>
-                        </div>
+					<div class="row col-7 ms-4 align-bottom my-auto">
+						<h3 class="text-light align-top">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus cupiditate, dignissimos consequatur, aliquam eligendi quaerat nostrum animi quae saepe, perferendis eveniet voluptatum doloribus cumque aliquid suscipit eum inventore vel!</h3>
+						<p class="text-light align-middle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, voluptatem. Blanditiis adipisci qui eum facere praesentium vitae ipsa esse laboriosam tempore voluptatem dolor cum id, voluptatum ratione, perferendis ipsum facilis.</p>
+					</div>
 
-                        <div class="col-7 ms-4">
-                            <p class="h2 text-dark align-top">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus cupiditate, dignissimos consequatur, aliquam eligendi quaerat nostrum animi quae saepe, perferendis eveniet voluptatum doloribus cumque aliquid suscipit eum inventore vel!</p>
-                            <p class="text-muted align-middle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, voluptatem. Blanditiis adipisci qui eum facere praesentium vitae ipsa esse laboriosam tempore voluptatem dolor cum id, voluptatum ratione, perferendis ipsum facilis.</p>
-                        </div>
+				</a>
+			</div>
 
-                    </a>
-                </div>
+			<div class="row mb-4 border-top p-3 bg-dark p-5">
+				<a href="{{ path('show_chambres_from_category', {'category': 'suite'}) }}" title="Voir " class="d-flex text-decoration-none">
 
-				 <div class="row mb-4 border-top p-3">
-                    <a href="{{ path('show_chambres_from_category', {'category': 'confort'})  }}" title="Voir " class="d-flex text-decoration-none">
+					<div class="row col-5">
+						<h2 class="text-light">Les suites</h2>
+						<img src="{{ asset('/uploads/suite.jpg') }}" alt="Nos suites ultra luxe premium" width="500" class="rounded-0">
+					</div>
 
-                        <div class="col-5">
-                            <img src="" alt="" width="150"  class="img-custom rounded">
-							<h2>Les chambres confort</h2>
-                        </div>
+					<div class="row col-7 ms-4 align-bottom my-auto">
+						<h3 class="text-light align-top">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus cupiditate, dignissimos consequatur, aliquam eligendi quaerat nostrum animi quae saepe, perferendis eveniet voluptatum doloribus cumque aliquid suscipit eum inventore vel!</h3>
+						<p class="text-light align-middle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, voluptatem. Blanditiis adipisci qui eum facere praesentium vitae ipsa esse laboriosam tempore voluptatem dolor cum id, voluptatum ratione, perferendis ipsum facilis.</p>
+					</div>
 
-                        <div class="col-7 ms-4">
-                            <h2 class="text-dark align-top">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus cupiditate, dignissimos consequatur, aliquam eligendi quaerat nostrum animi quae saepe, perferendis eveniet voluptatum doloribus cumque aliquid suscipit eum inventore vel!</h2>
-                            <p class="text-muted align-middle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, voluptatem. Blanditiis adipisci qui eum facere praesentium vitae ipsa esse laboriosam tempore voluptatem dolor cum id, voluptatum ratione, perferendis ipsum facilis.</p>
-                        </div>
+				</a>
+			</div>
 
-                    </a>
-                </div>
-
-				 <div class="row mb-4 border-top p-3">
-                    <a href="{{ path('show_chambres_from_category', {'category': 'suite'})  }}" title="Voir " class="d-flex text-decoration-none">
-
-                        <div class="col-5">
-                            <img src="" alt="" width="150"  class="img-custom rounded">
-							<h2>Les suites</h2>
-                        </div>
-
-                        <div class="col-7 ms-4">
-                            <h2 class="text-dark align-top">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus cupiditate, dignissimos consequatur, aliquam eligendi quaerat nostrum animi quae saepe, perferendis eveniet voluptatum doloribus cumque aliquid suscipit eum inventore vel!</h2>
-                            <p class="text-muted align-middle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, voluptatem. Blanditiis adipisci qui eum facere praesentium vitae ipsa esse laboriosam tempore voluptatem dolor cum id, voluptatum ratione, perferendis ipsum facilis.</p>
-                        </div>
-
-                    </a>
-                </div>
-
-{% endblock %}
+		{% endblock %}
